@@ -1,0 +1,760 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interior</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Verdana, Geneva, Tahoma, sans-serif;
+            background-color: rgb(0, 0, 88);
+            min-height: 100vh;
+            color: white;
+        }
+
+        /* Header */
+        .header {
+            width: 100%;
+            font-size: 2rem;
+            font-weight: bolder;
+            color: white;
+            padding: 15px;
+            background-color: rgba(24, 24, 24, 0.8);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-bottom: 2px solid #00d4ff;
+        }
+
+        /* Navigation */
+        .nav {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            padding: 15px;
+            background: rgba(0, 0, 0, 0.5);
+        }
+
+        .nav a {
+            color: #00d4ff;
+            text-decoration: none;
+            font-weight: bold;
+            padding: 8px 20px;
+            border: 1px solid #00d4ff;
+            border-radius: 20px;
+            transition: all 0.3s;
+        }
+
+        .nav a:hover {
+            background: #00d4ff;
+            color: black;
+        }
+
+        /* Hero Section */
+        .hero {
+            width: 100%;
+            height: 50vh;
+            background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('interior-hero.jpg');
+            background-position: center;
+            background-size: cover;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+        }
+
+        .hero-text h1 {
+            font-size: 3rem;
+            color: #00d4ff;
+            text-shadow: 0 0 20px rgba(0, 212, 255, 0.8);
+            margin-bottom: 15px;
+        }
+
+        .hero-text p {
+            font-size: 1.2rem;
+            color: #ccc;
+        }
+
+        /* Section Styling */
+        .section {
+            padding: 40px 20px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2rem;
+            color: #00d4ff;
+            margin-bottom: 30px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            border-bottom: 2px solid #00d4ff;
+            padding-bottom: 15px;
+            display: inline-block;
+            width: 100%;
+        }
+
+        /* Product Grid */
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+
+        /* Product Card */
+        .product-card {
+            background: rgba(24, 24, 24, 0.8);
+            border: 2px solid rgba(0, 212, 255, 0.3);
+            border-radius: 15px;
+            overflow: hidden;
+            transition: all 0.4s ease;
+            position: relative;
+        }
+
+        .product-card:hover {
+            transform: translateY(-10px);
+            border-color: #00d4ff;
+            box-shadow: 0 15px 40px rgba(0, 212, 255, 0.3);
+        }
+
+        .product-image {
+            width: 100%;
+            height: 220px;
+            background: #111;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 4rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .product-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .product-badge {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: #ff0066;
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: bold;
+        }
+
+        .product-info {
+            padding: 25px;
+        }
+
+        .product-name {
+            font-size: 1.3rem;
+            font-weight: bold;
+            color: #00d4ff;
+            margin-bottom: 10px;
+        }
+
+        .product-desc {
+            color: #aaa;
+            font-size: 0.95rem;
+            margin-bottom: 15px;
+            line-height: 1.5;
+        }
+
+        .product-features {
+            list-style: none;
+            margin-bottom: 20px;
+        }
+
+        .product-features li {
+            color: #ccc;
+            font-size: 0.9rem;
+            margin-bottom: 5px;
+            padding-left: 20px;
+            position: relative;
+        }
+
+        .product-features li:before {
+            content: "✓";
+            color: #00ff88;
+            position: absolute;
+            left: 0;
+        }
+
+        .product-price {
+            font-size: 1.8rem;
+            color: #00ff88;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+
+        .product-price span {
+            font-size: 0.9rem;
+            color: #888;
+        }
+
+        .btn-book {
+            width: 100%;
+            padding: 15px;
+            background: linear-gradient(135deg, #00d4ff 0%, #0099cc 100%);
+            border: none;
+            border-radius: 10px;
+            color: white;
+            font-size: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .btn-book:hover {
+            transform: scale(1.02);
+            box-shadow: 0 10px 30px rgba(0, 212, 255, 0.4);
+        }
+
+        /* Booking Calculator Section */
+        .calculator-section {
+            background: rgba(24, 24, 24, 0.9);
+            border: 2px solid #00d4ff;
+            border-radius: 20px;
+            padding: 40px;
+            margin: 40px auto;
+            max-width: 800px;
+        }
+
+        .calculator-title {
+            text-align: center;
+            color: #00d4ff;
+            font-size: 1.8rem;
+            margin-bottom: 30px;
+        }
+
+        .form-group {
+            margin-bottom: 25px;
+        }
+
+        .form-group label {
+            display: block;
+            color: #ccc;
+            margin-bottom: 10px;
+            font-weight: bold;
+        }
+
+        .form-group select,
+        .form-group input {
+            width: 100%;
+            padding: 15px;
+            border: 1px solid #00d4ff;
+            border-radius: 10px;
+            background: rgba(0, 0, 0, 0.5);
+            color: white;
+            font-size: 1rem;
+        }
+
+        .form-group select:focus,
+        .form-group input:focus {
+            outline: none;
+            border-color: #00ff88;
+        }
+
+        .options-group {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-top: 10px;
+        }
+
+        .option-checkbox {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 15px;
+            background: rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(0, 212, 255, 0.3);
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .option-checkbox:hover {
+            border-color: #00d4ff;
+            background: rgba(0, 212, 255, 0.1);
+        }
+
+        .option-checkbox input[type="checkbox"] {
+            width: 20px;
+            height: 20px;
+            accent-color: #00d4ff;
+        }
+
+        .option-checkbox label {
+            margin: 0;
+            cursor: pointer;
+            color: white;
+        }
+
+        .price-summary {
+            background: rgba(0, 0, 0, 0.5);
+            border: 1px solid #00ff88;
+            border-radius: 15px;
+            padding: 25px;
+            margin-top: 30px;
+        }
+
+        .summary-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 15px;
+            color: #ccc;
+        }
+
+        .summary-row.total {
+            border-top: 2px solid #00ff88;
+            padding-top: 15px;
+            margin-top: 15px;
+            font-size: 1.3rem;
+            font-weight: bold;
+            color: #00ff88;
+        }
+
+        .time-estimate {
+            text-align: center;
+            color: #00d4ff;
+            margin: 20px 0;
+            font-size: 1.1rem;
+        }
+
+        .btn-confirm {
+            width: 100%;
+            padding: 18px;
+            background: linear-gradient(135deg, #00ff88 0%, #00cc66 100%);
+            border: none;
+            border-radius: 12px;
+            color: black;
+            font-size: 1.2rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+            margin-top: 20px;
+        }
+
+        .btn-confirm:hover {
+            transform: scale(1.02);
+            box-shadow: 0 10px 30px rgba(0, 255, 136, 0.4);
+        }
+
+        /* Gallery Section */
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-top: 30px;
+        }
+
+        .gallery-item {
+            height: 200px;
+            background: #111;
+            border-radius: 10px;
+            overflow: hidden;
+            border: 2px solid transparent;
+            transition: all 0.3s;
+            position: relative;
+        }
+
+        .gallery-item:hover {
+            border-color: #00d4ff;
+            transform: scale(1.05);
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .gallery-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(transparent, rgba(0,0,0,0.9));
+            padding: 20px;
+            color: #00d4ff;
+            font-weight: bold;
+        }
+
+        /* Footer */
+        .footer {
+            background: rgba(0, 0, 0, 0.8);
+            padding: 30px;
+            text-align: center;
+            color: #888;
+            border-top: 2px solid #00d4ff;
+            margin-top: 50px;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .header {
+                font-size: 1.5rem;
+            }
+            
+            .hero-text h1 {
+                font-size: 2rem;
+            }
+            
+            .nav {
+                flex-wrap: wrap;
+                gap: 10px;
+            }
+            
+            .product-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header -->
+    <div class="header">Interior Styling & Customization</div>
+
+    <!-- Navigation -->
+    <div class="nav">
+        <a href="index.html">Home</a>
+        <a href="exterior.html">Exterior</a>
+        <a href="interior.html">Interior</a>
+        <a href="led.html">LED & Lighting</a>
+        <a href="contact.html">Contact</a>
+    </div>
+
+    <!-- Hero Section -->
+    <div class="hero">
+        <div class="hero-text">
+            <h1>Transform Your Interior</h1>
+            <p>Premium Seat Covers | Ambient Lighting | Custom Stitching</p>
+        </div>
+    </div>
+
+    <!-- Products Section -->
+    <div class="section">
+        <h2 class="section-title">Our Interior Services</h2>
+        
+        <div class="product-grid" id="product-list">
+            <!-- Products inserted by JavaScript -->
+        </div>
+    </div>
+
+    <!-- Booking Calculator -->
+    <div class="section">
+        <div class="calculator-section">
+            <h2 class="calculator-title">Interior Work Calculator</h2>
+            
+            <div class="form-group">
+                <label>Select Car Category:</label>
+                <select id="car-type" onchange="calculateTotal()">
+                    <option value="">-- Choose Car Type --</option>
+                    <option value="0">SUV (7 Seats)</option>
+                    <option value="1">D-Segment Sedan (5 Seats)</option>
+                    <option value="2">Crossover (5 Seats)</option>
+                    <option value="3">Truck (5 Seats)</option>
+                    <option value="4">Sports Car (2 Seats)</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label>Select Services:</label>
+                <div class="options-group">
+                    <div class="option-checkbox">
+                        <input type="checkbox" id="seat-covers" value="15000" onchange="calculateTotal()">
+                        <label for="seat-covers">Premium Seat Covers (Rs. 15,000)</label>
+                    </div>
+                    <div class="option-checkbox">
+                        <input type="checkbox" id="roof-lights" value="8000" onchange="calculateTotal()">
+                        <label for="roof-lights">Roof LED Lights (Rs. 8,000)</label>
+                    </div>
+                    <div class="option-checkbox">
+                        <input type="checkbox" id="star-light" value="25000" onchange="calculateTotal()">
+                        <label for="star-light">Star Light Roof (Rs. 25,000)</label>
+                    </div>
+                    <div class="option-checkbox">
+                        <input type="checkbox" id="neon-work" value="12000" onchange="calculateTotal()">
+                        <label for="neon-work">Interior Neon Work (Rs. 12,000)</label>
+                    </div>
+                    <div class="option-checkbox">
+                        <input type="checkbox" id="seat-stitch" value="5000" onchange="calculateTotal()">
+                        <label for="seat-stitch">Custom Seat Stitching (Rs. 5,000)</label>
+                    </div>
+                    <div class="option-checkbox">
+                        <input type="checkbox" id="poshish" value="20000" onchange="calculateTotal()">
+                        <label for="poshish">Seat Poshish (Rs. 20,000)</label>
+                    </div>
+                    <div class="option-checkbox">
+                        <input type="checkbox" id="ragzean" value="18000" onchange="calculateTotal()">
+                        <label for="ragzean">Ragzean Work (Rs. 18,000)</label>
+                    </div>
+                    <div class="option-checkbox">
+                        <input type="checkbox" id="dashboard" value="10000" onchange="calculateTotal()">
+                        <label for="dashboard">Dashboard Trim (Rs. 10,000)</label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label>Additional Notes:</label>
+                <input type="text" id="notes" placeholder="Any specific requirements...">
+            </div>
+
+            <div class="price-summary" id="summary-box" style="display: none;">
+                <div class="summary-row">
+                    <span>Base Service:</span>
+                    <span id="base-price">Rs. 0</span>
+                </div>
+                <div class="summary-row">
+                    <span>Add-ons:</span>
+                    <span id="addons-price">Rs. 0</span>
+                </div>
+                <div class="summary-row total">
+                    <span>Total Estimate:</span>
+                    <span id="total-price">Rs. 0</span>
+                </div>
+                <div class="time-estimate">
+                    Estimated Time: <span id="time-estimate">2-3 Days</span>
+                </div>
+            </div>
+
+            <button class="btn-confirm" id="confirm-btn" style="display: none;" onclick="confirmBooking()">
+                Confirm Booking
+            </button>
+        </div>
+    </div>
+
+    <!-- Work Gallery -->
+    <div class="section">
+        <h2 class="section-title">Our Recent Work</h2>
+        <div class="gallery">
+            <div class="gallery-item">
+                <div style="width:100%;height:100%;background:linear-gradient(45deg,#111,#222);display:flex;align-items:center;justify-content:center;color:#00d4ff;">Seat Work</div>
+                <div class="gallery-overlay">Premium Leather Seats</div>
+            </div>
+            <div class="gallery-item">
+                <div style="width:100%;height:100%;background:linear-gradient(45deg,#111,#222);display:flex;align-items:center;justify-content:center;color:#00d4ff;">Star Roof</div>
+                <div class="gallery-overlay">Star Light Installation</div>
+            </div>
+            <div class="gallery-item">
+                <div style="width:100%;height:100%;background:linear-gradient(45deg,#111,#222);display:flex;align-items:center;justify-content:center;color:#00d4ff;">Neon Kit</div>
+                <div class="gallery-overlay">Interior Neon Kit</div>
+            </div>
+            <div class="gallery-item">
+                <div style="width:100%;height:100%;background:linear-gradient(45deg,#111,#222);display:flex;align-items:center;justify-content:center;color:#00d4ff;">Poshish</div>
+                <div class="gallery-overlay">Seat Poshish Work</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <div class="footer">
+        <p>SK Motor Accessories | Quality Auto Styling Since 2010</p>
+        <p style="margin-top: 10px; color: #00d4ff;">Call: 0300-1234567 | Location: Main Boulevard, Lahore</p>
+    </div>
+
+    <script>
+        // Car data
+        let Cars = [
+            {Catagory: "SUV", Seats: 7, BasePrice: 5000},
+            {Catagory: "D-Segment Sedan", Seats: 5, BasePrice: 4000},
+            {Catagory: "Crossover", Seats: 5, BasePrice: 3500},
+            {Catagory: "Truck", Seats: 5, BasePrice: 4500},
+            {Catagory: "Sports Car", Seats: 2, BasePrice: 3000}
+        ];
+
+        // Interior services data
+        let Services = [
+            {
+                name: "Premium Seat Covers",
+                desc: "High-quality leather/fabric seat covers with perfect fitting and 2-year warranty.",
+                features: ["Waterproof material", "Custom fit", "Easy to clean", "UV resistant"],
+                price: "15,000",
+                icon: "🪑",
+                time: "1 Day"
+            },
+            {
+                name: "Roof LED Lights",
+                desc: "Ambient lighting for roof interior with multiple colors and remote control.",
+                features: ["16 colors", "Remote control", "Music sync", "Easy installation"],
+                price: "8,000",
+                icon: "💡",
+                time: "3 Hours"
+            },
+            {
+                name: "Star Light Roof",
+                desc: "Rolls Royce style star light ceiling with hundreds of fiber optic lights.",
+                features: ["500+ stars", "Twinkle effect", "Dimmer control", "Premium look"],
+                price: "25,000",
+                icon: "✨",
+                time: "2 Days"
+            },
+            {
+                name: "Interior Neon Work",
+                desc: "Custom neon lighting for footwell, doors, and dashboard areas.",
+                features: ["Under dash lighting", "Door sills", "Multiple colors", "App control"],
+                price: "12,000",
+                icon: "🌈",
+                time: "4 Hours"
+            },
+            {
+                name: "Custom Seat Stitching",
+                desc: "Professional stitching patterns and color combinations for unique look.",
+                features: ["Diamond pattern", "Contrast stitching", "Leather repair", "Color options"],
+                price: "5,000",
+                icon: "🪡",
+                time: "6 Hours"
+            },
+            {
+                name: "Seat Poshish",
+                desc: "Complete seat restoration with premium materials and foam replacement.",
+                features: ["New foam", "Premium fabric", "Spring repair", "Comfort upgrade"],
+                price: "20,000",
+                icon: "🛋️",
+                time: "2 Days"
+            },
+            {
+                name: "Ragzean Work",
+                desc: "Traditional Ragzean style seat covers with modern materials.",
+                features: ["Velvet finish", "Traditional design", "Durable", "Luxury feel"],
+                price: "18,000",
+                icon: "🎭",
+                time: "1 Day"
+            },
+            {
+                name: "Dashboard Trim",
+                desc: "Custom dashboard wrapping and trim customization.",
+                features: ["Carbon fiber look", "Wood finish", "Leather wrap", "Protection film"],
+                price: "10,000",
+                icon: "🎛️",
+                time: "5 Hours"
+            }
+        ];
+
+        // Display services
+        function showServices() {
+            let container = document.getElementById('product-list');
+            let html = '';
+            
+            for (let i = 0; i < Services.length; i++) {
+                let service = Services[i];
+                
+                html += '<div class="product-card">';
+                html += '<div class="product-image">';
+                html += '<div style="font-size:4rem;">' + service.icon + '</div>';
+                html += '<span class="product-badge">' + service.time + '</span>';
+                html += '</div>';
+                html += '<div class="product-info">';
+                html += '<div class="product-name">' + service.name + '</div>';
+                html += '<div class="product-desc">' + service.desc + '</div>';
+                html += '<ul class="product-features">';
+                
+                for (let j = 0; j < service.features.length; j++) {
+                    html += '<li>' + service.features[j] + '</li>';
+                }
+                
+                html += '</ul>';
+                html += '<div class="product-price">Rs. ' + service.price + ' <span>starting</span></div>';
+                html += '<button class="btn-book" onclick="scrollToCalculator()">Book Now</button>';
+                html += '</div></div>';
+            }
+            
+            container.innerHTML = html;
+        }
+
+        // Scroll to calculator
+        function scrollToCalculator() {
+            document.querySelector('.calculator-section').scrollIntoView({behavior: 'smooth'});
+        }
+
+        // Calculate total price
+        function calculateTotal() {
+            let carSelect = document.getElementById('car-type');
+            let summaryBox = document.getElementById('summary-box');
+            let confirmBtn = document.getElementById('confirm-btn');
+            
+            if (carSelect.value === '') {
+                summaryBox.style.display = 'none';
+                confirmBtn.style.display = 'none';
+                return;
+            }
+            
+            // Get base price from car type
+            let carIndex = parseInt(carSelect.value);
+            let basePrice = Cars[carIndex].BasePrice;
+            
+            // Calculate add-ons
+            let addons = 0;
+            let checkboxes = document.querySelectorAll('input[type="checkbox"]');
+            let selectedServices = [];
+            
+            for (let i = 0; i < checkboxes.length; i++) {
+                if (checkboxes[i].checked) {
+                    addons += parseInt(checkboxes[i].value);
+                    selectedServices.push(checkboxes[i].nextElementSibling.innerText);
+                }
+            }
+            
+            let total = basePrice + addons;
+            
+            // Calculate time estimate
+            let days = 1;
+            if (addons > 30000) days = 3;
+            else if (addons > 15000) days = 2;
+            
+            // Update display
+            document.getElementById('base-price').innerText = 'Rs. ' + basePrice.toLocaleString();
+            document.getElementById('addons-price').innerText = 'Rs. ' + addons.toLocaleString();
+            document.getElementById('total-price').innerText = 'Rs. ' + total.toLocaleString();
+            document.getElementById('time-estimate').innerText = days + ' Days';
+            
+            summaryBox.style.display = 'block';
+            confirmBtn.style.display = 'block';
+        }
+
+        // Confirm booking
+        function confirmBooking() {
+            let carSelect = document.getElementById('car-type');
+            let car = Cars[parseInt(carSelect.value)];
+            let total = document.getElementById('total-price').innerText;
+            let time = document.getElementById('time-estimate').innerText;
+            let notes = document.getElementById('notes').value;
+            
+            let message = 'Booking Confirmed!\n\n';
+            message += 'Car: ' + car.Catagory + ' (' + car.Seats + ' Seats)\n';
+            message += 'Total: ' + total + '\n';
+            message += 'Estimated Time: ' + time + '\n';
+            
+            if (notes !== '') {
+                message += 'Notes: ' + notes + '\n';
+            }
+            
+            message += '\nThank you for choosing SK Motor!';
+            
+            alert(message);
+        }
+
+        // Initialize
+        showServices();
+    </script>
+
+</body>
+</html>

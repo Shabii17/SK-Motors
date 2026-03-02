@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Exterior</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        .body{
+            font-family: Verdana, Geneva, Tahoma, sans-serif;
+            background-color: rgb(0, 0,88);
+            min-height: 100vh;
+            width: 100%;
+        }
+         .nav {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            padding: 15px;
+            background: rgba(0, 0, 0, 0.5);
+        }
+
+        .nav a {
+            color: #00d4ff;
+            text-decoration: none;
+            font-weight: bold;
+            padding: 8px 20px;
+            border: 1px solid #00d4ff;
+            border-radius: 20px;
+            transition: all 0.3s;
+        }
+
+        .nav a:hover {
+            background: #00d4ff;
+            color: black;
+        }
+        .header{
+            width: 100%;
+            font-size: 2rem;
+            font-weight: bolder;
+            color: white;
+            padding: 15px;
+            background-color: rgba(24, 24, 24, 0.8);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        /* picture of page */
+           .picdiv{
+            width: 100%;
+            min-height:40vh;
+            padding-top: 40px; 
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            
+        }
+        .ppfintro{
+            background-image:url(ppfintro.jpeg);
+            background-position: center;
+            background-size: 100% 100%;
+            background-repeat: no-repeat;
+            width: 90%;
+            height:60vh;
+            box-shadow: 0 10px 30px rgb(105, 105, 105);
+            }
+            .picdiv2{
+                width: 95%;
+                justify-content: space-between;
+                display: flex;
+                align-items: center;
+            }
+        .ppfmethod{
+            background-image: url(ppfmethod.jpeg);
+            background-position: center;
+            background-size: 100% 100%;
+            background-repeat: no-repeat;
+            width: 40%;
+            height:40vh;
+        }
+        .text{
+            width: 100%;
+            padding: 4%;
+            border: 3px solid rgb(49, 49, 49);
+            box-shadow: 0 10px 30px rgb(105, 105, 105) ;
+            background-color: rgba(24, 24, 24, 0.8);
+            color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+        }
+        /* EXPENSES CALCULATOR SECTION */
+.calculator-section {
+    width: 90%;
+    margin: 5vh auto;
+    padding: 30px;
+    background: rgba(24, 24, 24, 0.9);
+    border: 2px solid #00d4ff;
+    border-radius: 15px;
+    color: white;
+}
+
+.calculator-section h2 {
+    text-align: center;
+    color: #00d4ff;
+    margin-bottom: 25px;
+    font-size: 1.8rem;
+}
+
+.calculator-box {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    max-width: 500px;
+    margin: 0 auto;
+}
+
+.calculator-box label {
+    font-weight: bold;
+    color: #ccc;
+}
+
+.calculator-box select {
+    padding: 12px;
+    font-size: 1rem;
+    border-radius: 8px;
+    border: 1px solid #00d4ff;
+    background: rgba(0, 0, 0, 0.5);
+    color: white;
+    cursor: pointer;
+}
+
+.price-display {
+    background: rgba(0, 212, 255, 0.1);
+    padding: 20px;
+    border-radius: 10px;
+    border: 1px solid #00d4ff;
+    text-align: center;
+}
+
+.price-display .amount {
+    font-size: 2rem;
+    color: #00ff88;
+    font-weight: bold;
+}
+
+.price-display .days {
+    color: #ccc;
+    margin-top: 10px;
+}
+
+.confirm-btn {
+    padding: 15px;
+    background: linear-gradient(135deg, #00ff88 0%, #00cc66 100%);
+    border: none;
+    border-radius: 10px;
+    color: black;
+    font-size: 1.1rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.confirm-btn:hover {
+    transform: scale(1.02);
+    box-shadow: 0 5px 20px rgba(0, 255, 136, 0.4);
+}
+.footer {
+            background: rgba(0, 0, 0, 0.8);
+            padding: 30px;
+            text-align: center;
+            color: #888;
+            border-top: 2px solid #00d4ff;
+            margin-top: 50px;
+        }
+
+
+    </style>
+</head>
+<body>
+    <div class="body">
+        <div class="header">Exterior</div>
+    <!-- Navigation -->
+    <div class="nav">
+        <a href="index.html">Home</a>
+        <a href="exterior.html">Exterior</a>
+        <a href="interior.html">Interior</a>
+        <a href="led.html">LED & Lighting</a>
+        <a href="contact.html">Contact</a>
+    </div>
+        <div class="picdiv">
+          <div class="ppfintro"></div>
+        </div>
+        <div style="padding-top:5vh ;">
+         <Div class="text"><h1>WHY PPF IS IMPORTANT??</h1><Br><Br>
+          PPF (Paint Protection Film) is important because it protects your
+          car’s original paint from scratches, stone chips, 
+          road debris, and UV damage. It keeps the surface looking 
+          new and shiny for years. PPF also helps maintain your car’s
+           resale value by preserving its factory finish. It’s a smart
+            investment for long-term protection and peace of mind.
+         </Div></div>
+         <div style="padding-top:5vh ;"></div>
+         <div class="picdiv2">
+            <div id="display"></div>
+         <div class="ppfmethod"></div>
+         <div>
+            <!-- EXPENSES CALCULATOR SECTION -->
+<div class="calculator-section">
+    <h2>Expenses Calculator</h2>
+    <div class="calculator-box">
+        <label>Select Car Category:</label>
+        <select id="car-select" onchange="updatePrice()">
+            <option value="">-- Choose a Category --</option>
+        </select>
+        
+        <div class="price-display" id="price-box" style="display: none;">
+            <div class="amount" id="price-amount">Rs. 0</div>
+            <div class="days">Service Duration: 2 Days</div>
+        </div>
+        
+        <button class="confirm-btn" id="confirm-btn" style="display: none;" onclick="confirmBooking()">
+            Confirm Booking
+        </button>
+    </div>
+</div>
+         </div>
+         </div>
+         <!-- footer -->
+            <div class="footer">
+        <p>SK Motor Accessories | Quality Auto Styling Since 2010</p>
+        <p style="margin-top: 10px; color: #00d4ff;">Call: 0300-1234567 | Location: Main Boulevard, Lahore</p>
+    </div>
+    </div>
+</body>
+     <script>
+    let Cars = [
+        {Catagory: "SUV", Seats: 7, Engine: "V8", Price: 37000},
+        {Catagory: "D seg Sedan", Seats: 5, Engine: "V4", Price: 30000},
+        {Catagory: "Cross over", Seats: 5, Engine: "V6", Price: 25000},
+        {Catagory: "trucks", Seats: 5, Engine: "V6", Price: 40000},
+        {Catagory: "Sports", Seats: 2, Engine: "V12", Price: 50000}
+    ];
+
+    // Fill the dropdown when page loads
+    function loadCategories() {
+        let select = document.getElementById('car-select');
+        
+        for (let i = 0; i < Cars.length; i++) {
+            let option = document.createElement('option');
+            option.value = i;  // Store the array index
+            option.text = Cars[i].Catagory + " - " + Cars[i].Engine;
+            select.appendChild(option);
+        }
+    }
+
+    // Update price when selection changes
+    function updatePrice() {
+        let select = document.getElementById('car-select');
+        let priceBox = document.getElementById('price-box');
+        let priceAmount = document.getElementById('price-amount');
+        let confirmBtn = document.getElementById('confirm-btn');
+        
+        if (select.value === "") {
+            priceBox.style.display = 'none';
+            confirmBtn.style.display = 'none';
+            return;
+        }
+        
+        let index = parseInt(select.value);
+        let selectedCar = Cars[index];
+        
+        priceAmount.innerText = 'Rs. ' + selectedCar.Price.toLocaleString();
+        priceBox.style.display = 'block';
+        confirmBtn.style.display = 'block';
+    }
+
+    // Confirm booking
+    function confirmBooking() {
+        let select = document.getElementById('car-select');
+        let index = parseInt(select.value);
+        let car = Cars[index];
+        
+        alert('Booking Confirmed!\n\nCategory: ' + car.Catagory + 
+              '\nPrice: Rs. ' + car.Price.toLocaleString() + 
+              '\nDuration: 2 Days');
+    }
+
+    // Run when page loads
+    loadCategories();
+</script>
+</html>
