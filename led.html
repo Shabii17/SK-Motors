@@ -25,6 +25,28 @@
             text-align: center;
             padding: 15px;
         }
+         .nav {
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            background-color: rgba(24, 24, 24, 0.638);
+            padding: 10px 0;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .nav a {
+            color: white;
+            text-decoration: none;
+            padding: 8px 15px;
+            font-weight: bold;
+            transition: 0.2s;
+        }
+
+        .nav a:hover {
+            background-color: rgba(255,255,255,0.2);
+            border-radius: 5px;
+        }
 
         /* Cart Icon */
         .cart-box {
@@ -382,6 +404,14 @@
 <body>
     <div class="webpage">
     <div class="mainheader">LED & Lighting</div>
+     <div class="nav">
+        <a href="index.html">HOME</a>
+        <a href="led.html">LED & LIGHTING</a>
+        <a href="exterior.html">EXTERIOR</a>
+        <a href="interior.html">INTERIOR</a>
+        <a href="contact.html">CONTACT</a>
+    </div>
+
     <div class="cart-box" onclick="showCart()">
         Cart (<span id="cart-num">0</span>)
     </div>
