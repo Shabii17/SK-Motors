@@ -475,9 +475,9 @@
             for (let i = 0; i < cart.length; i++) {
                 count += cart[i].qty;
             }
+            localStorage.setItem('skCartCount', count);
             document.getElementById('cart-num').innerText = count;
         }
-
         // Show cart modal
         function showCart() {
             let modal = document.getElementById('cart-modal');

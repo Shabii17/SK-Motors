@@ -3,64 +3,352 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SK MOTORS</title>
+    <title>SK MOTORS | Auto Dealership & Accessories</title>
     <link rel="stylesheet" href="stylesheet.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css">
+    <style>
+        /* Mobile Menu Styles */
+        .mobile-menu-btn {
+            display: none;
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: #00d4ff;
+            color: black;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            z-index: 1000;
+            box-shadow: 0 5px 20px rgba(0, 212, 255, 0.4);
+            cursor: pointer;
+            border: none;
+        }
+        
+        @media (max-width: 768px) {
+            .mobile-menu-btn {
+                display: flex;
+            }
+            .MainRC {
+                display: none;
+            }
+            .MRL {
+                width: auto;
+                gap: 15px;
+            }
+        }
+        
+        /* Cart Badge */
+        .cart-badge {
+            position: absolute;
+            top: -5px;
+            right: -5px;
+            background: #ff0066;
+            color: white;
+            font-size: 10px;
+            padding: 2px 6px;
+            border-radius: 10px;
+            font-weight: bold;
+        }
+        
+        .MRL1 {
+            position: relative;
+        }
+        
+        /* Login Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .modal-content {
+            background: rgb(0, 0, 88);
+            border: 2px solid #00d4ff;
+            border-radius: 15px;
+            padding: 30px;
+            width: 90%;
+            max-width: 350px;
+            color: white;
+        }
+        
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            border-bottom: 1px solid #00d4ff;
+            padding-bottom: 10px;
+        }
+        
+        .close-modal {
+            background: none;
+            border: none;
+            color: #ff4444;
+            font-size: 24px;
+            cursor: pointer;
+        }
+        
+        .modal-input {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 15px;
+            border: 1px solid #00d4ff;
+            border-radius: 8px;
+            background: rgba(0, 0, 0, 0.5);
+            color: white;
+        }
+        
+        .modal-btn {
+            width: 100%;
+            padding: 12px;
+            background: #00d4ff;
+            border: none;
+            border-radius: 8px;
+            color: black;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        
+        /* Favorites Panel */
+        .fav-panel {
+            display: none;
+            position: fixed;
+            top: 0;
+            right: 0;
+            width: 300px;
+            height: 100%;
+            background: rgb(0, 0, 88);
+            border-left: 2px solid #00d4ff;
+            z-index: 1000;
+            padding: 20px;
+            overflow-y: auto;
+        }
+        
+        .fav-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            border-bottom: 1px solid #00d4ff;
+            padding-bottom: 10px;
+            color: white;
+        }
+
+        /* Car Listing Styles */
+        .car-listing-section {
+            padding: 40px 20px;
+            background: rgba(0, 0, 0, 0.3);
+        }
+
+        .car-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .car-card {
+            background: linear-gradient(145deg, rgb(0, 0, 88), rgb(0, 0, 40));
+            border: 1px solid #00d4ff;
+            border-radius: 15px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .car-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0, 212, 255, 0.3);
+        }
+
+        .car-image {
+            width: 100%;
+            height: 200px;
+            background: linear-gradient(45deg, #1a1a2e, #16213e);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #00d4ff;
+            font-size: 3rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .car-badge {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            background: #00d4ff;
+            color: black;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: bold;
+        }
+
+        .car-info {
+            padding: 20px;
+            color: white;
+        }
+
+        .car-name {
+            font-size: 1.3rem;
+            font-weight: bold;
+            color: #00d4ff;
+            margin-bottom: 10px;
+        }
+
+        .car-details {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 15px;
+            font-size: 0.9rem;
+            color: #888;
+        }
+
+        .car-detail-item {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .car-price {
+            font-size: 1.5rem;
+            color: #00ff88;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+
+        .car-buttons {
+            display: flex;
+            gap: 10px;
+        }
+
+        .car-btn {
+            flex: 1;
+            padding: 10px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s;
+        }
+
+        .btn-primary {
+            background: #00d4ff;
+            color: black;
+        }
+
+        .btn-primary:hover {
+            background: #00ff88;
+        }
+
+        .btn-secondary {
+            background: transparent;
+            border: 1px solid #ff0066;
+            color: #ff0066;
+        }
+
+        .btn-secondary:hover {
+            background: #ff0066;
+            color: white;
+        }
+
+        .car-card.hidden {
+            display: none;
+        }
+
+        .active-filter {
+            background: #00d4ff !important;
+            color: black !important;
+        }
+
+        .no-results {
+            text-align: center;
+            color: #888;
+            padding: 40px;
+            font-size: 1.2rem;
+            grid-column: 1 / -1;
+        }
+    </style>
 </head>
 <body>
     <div class="webpage">
         <!-- Header -->
         <div class="MainR">
+            <div class="mainrc"></div>
             <div class="MainRR"><h3>SK MOTORS</h3></div>
-            <div class="MainRC">
-                <form action="">
-                    <input type="text" placeholder="Search for product">
-                    <button><i class="fa-solid fa-magnifying-glass"></i></button>
-                </form>
-            </div>
+            
             <div class="MRL">
-                <div class="MRL1"><button><i class="fa-regular fa-user">
-                </i></button></div>
-                <div class="MRL1"><button><i class="fa-regular fa-heart">
-                </i></button></div>
-                <div class="MRL1"><button><i class="fa-solid fa-cart-shopping">
-                </i></button></div>
+                <div class="MRL1">
+                    <button onclick="showLogin()" title="Login">
+                        <i class="fa-regular fa-user"></i>
+                    </button>
+                </div>
+                <div class="MRL1">
+                    <button onclick="toggleFavorites()" title="Favorites">
+                        <i class="fa-regular fa-heart"></i>
+                        <span class="cart-badge" id="fav-count" style="display: none;">0</span>
+                    </button>
+                </div>
+                <div class="MRL1">
+                    <button onclick="goToCart()" title="Cart">
+                        <i class="fa-solid fa-cart-shopping"></i>
+                        <span class="cart-badge" id="cart-badge" style="display: none;">0</span>
+                    </button>
+                </div>
             </div>
         </div>
 
         <!-- Navigation Row -->
         <div class="row1cn">
-            <div class="row1cn1"><button onclick="window.location.href=
-            'led.html'">LED & LIGHTING</button></div>
-            <div class="row1cn1"><button onclick="window.location.href=
-            'exterior.html'">EXTERIOR</button></div>
-            <div class="row1cn1"><button onclick="window.location.href=
-            'interior.html'">INTERIOR</button></div>
+            <div class="row1cn1"><button onclick="window.location.href='led.html'">LED & LIGHTING</button></div>
+            <div class="row1cn1"><button onclick="window.location.href='exterior.html'">EXTERIOR</button></div>
+            <div class="row1cn1"><button onclick="window.location.href='interior.html'">INTERIOR</button></div>
             <div class="row1cn1"><button onclick="window.location.href='contact.html'">CONTACT</button></div>
         </div>
 
         <!-- Profiles Section -->
         <div class="profiles">
-            <div class="bg4x4"><h1>OFF ROADS</h1></div>
-            <div class="bggermans"><h2>GERMANS</h2></div>
-            <div class="bgsedans"><h2>SUVS</h2></div>
-            <div class="bghatchback"><h2>HATCHBACK</h2></div>
-            <div class="bgsuv"><h1>SEDANS</h1></div>
+            <div class="bg4x4" onclick="location.href='exterior.html'"><h1>OFF ROADS</h1></div>
+            <div class="bggermans" onclick="location.href='exterior.html'"><h2>GERMANS</h2></div>
+            <div class="bgsedans" onclick="location.href='exterior.html'"><h2>SUVS</h2></div>
+            <div class="bghatchback" onclick="location.href='exterior.html'"><h2>HATCHBACK</h2></div>
+            <div class="bgsuv" onclick="location.href='exterior.html'"><h1>SEDANS</h1></div>
         </div>
 
         <!-- Row 2 -->
         <div class="row2cn">
-            <button><i class="fa-solid fa-phone"></i></button>Call for any Information
+            <button onclick="location.href='contact.html'"><i class="fa-solid fa-phone"></i></button>
+            Call for any Information
         </div>
 
         <!-- Row 3 -->
         <div class="row3cn">
-            <div class="row3c1"><button><i class="fa-regular fa-calendar-check">
-            </i></button><h2>Book Inspection</h2></div>
-            <div class="row3c1"><button><i class="fa-solid fa-key"></i></button>
-                <h2>Buy/Sell</h2></div>
-            <div class="row3c1"><button><i class="fa-solid fa-info"></i>
-            </button><h2>PPF Details</h2></div>
+            <div class="row3c1" onclick="location.href='contact.html'">
+                <button><i class="fa-regular fa-calendar-check"></i></button>
+                <h2>Book Inspection</h2>
+            </div>
+            <div class="row3c1" onclick="location.href='contact.html'">
+                <button><i class="fa-solid fa-key"></i></button>
+                <h2>Buy/Sell</h2>
+            </div>
+            <div class="row3c1" onclick="location.href='exterior.html'">
+                <button><i class="fa-solid fa-info"></i></button>
+                <h2>PPF Details</h2>
+            </div>
         </div>
 
         <!-- Row 4 -->
@@ -91,19 +379,873 @@
             <h1>Used Cars</h1>
         </div>
 
-        <!-- Row 7 -->
+        <!-- NEW: Car Listing Section -->
+        <div class="car-listing-section">
+            <div class="car-grid" id="car-grid">
+                <!-- Automatic Cars (4 cars) -->
+                <div class="car-card" data-category="automatic">
+                    <div class="car-image" style="background: url('car1.jpeg') center/cover no-repeat;">
+                   <span class="car-badge">2020</span>
+                   </div>
+                    <div class="car-info">
+                        <div class="car-name">Toyota Corolla Altis</div>
+                        <div class="car-details">
+                            <span class="car-detail-item"><i class="fa-solid fa-gas-pump"></i> Petrol</span>
+                            <span class="car-detail-item"><i class="fa-solid fa-gauge-high"></i> 45k km</span>
+                            <span class="car-detail-item"><i class="fa-solid fa-location-dot"></i> Lahore</span>
+                        </div>
+                        <div class="car-price">Rs. 4,850,000</div>
+                        <div class="car-buttons">
+                            <button class="car-btn btn-primary" onclick="viewCar('Toyota Corolla Altis')">View Details</button>
+                            <button class="car-btn btn-secondary" onclick="addToFav('Toyota Corolla Altis', 4850000)"><i class="fa-regular fa-heart"></i></button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="car-card" data-category="automatic">
+                   <div class="car-image" style="background: url('car2.jpeg') center/cover no-repeat;">
+                    <span class="car-badge">2019</span>
+                   </div>
+                    <div class="car-info">
+                        <div class="car-name">Honda Civic Oriel</div>
+                        <div class="car-details">
+                            <span class="car-detail-item"><i class="fa-solid fa-gas-pump"></i> Petrol</span>
+                            <span class="car-detail-item"><i class="fa-solid fa-gauge-high"></i> 38k km</span>
+                            <span class="car-detail-item"><i class="fa-solid fa-location-dot"></i> Islamabad</span>
+                        </div>
+                        <div class="car-price">Rs. 5,200,000</div>
+                        <div class="car-buttons">
+                            <button class="car-btn btn-primary" onclick="viewCar('Honda Civic Oriel')">View Details</button>
+                            <button class="car-btn btn-secondary" onclick="addToFav('Honda Civic Oriel', 5200000)"><i class="fa-regular fa-heart"></i></button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="car-card" data-category="automatic">
+                  <div class="car-image" style="background: url('car3.jpeg') center/cover no-repeat;">
+    <span class="car-badge">2021</span>
+</div>
+                    <div class="car-info">
+                        <div class="car-name">Hyundai Elantra</div>
+                        <div class="car-details">
+                            <span class="car-detail-item"><i class="fa-solid fa-gas-pump"></i> Petrol</span>
+                            <span class="car-detail-item"><i class="fa-solid fa-gauge-high"></i> 22k km</span>
+                            <span class="car-detail-item"><i class="fa-solid fa-location-dot"></i> Karachi</span>
+                        </div>
+                        <div class="car-price">Rs. 5,750,000</div>
+                        <div class="car-buttons">
+                            <button class="car-btn btn-primary" onclick="viewCar('Hyundai Elantra')">View Details</button>
+                            <button class="car-btn btn-secondary" onclick="addToFav('Hyundai Elantra', 5750000)"><i class="fa-regular fa-heart"></i></button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="car-card" data-category="automatic">
+                    <div class="car-image" style="background: url('car4.jpeg') center/cover no-repeat;">
+    <span class="car-badge">2018</span>
+</div>
+                    <div class="car-info">
+                        <div class="car-name">Kia Sportage</div>
+                        <div class="car-details">
+                            <span class="car-detail-item"><i class="fa-solid fa-gas-pump"></i> Petrol</span>
+                            <span class="car-detail-item"><i class="fa-solid fa-gauge-high"></i> 55k km</span>
+                            <span class="car-detail-item"><i class="fa-solid fa-location-dot"></i> Lahore</span>
+                        </div>
+                        <div class="car-price">Rs. 6,100,000</div>
+                        <div class="car-buttons">
+                            <button class="car-btn btn-primary" onclick="viewCar('Kia Sportage')">View Details</button>
+                            <button class="car-btn btn-secondary" onclick="addToFav('Kia Sportage', 6100000)"><i class="fa-regular fa-heart"></i></button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Electric Cars (4 cars) -->
+                <div class="car-card" data-category="electric">
+                    <div class="car-image" style="background: url('car5.jpeg')
+                     center/cover no-repeat;">
+                     <span class="car-badge">2022</span>
+                     </div>
+                    <div class="car-info">
+                        <div class="car-name">Tesla Model 3</div>
+                        <div class="car-details">
+                            <span class="car-detail-item"><i class="fa-solid fa-battery-full"></i> Electric</span>
+                            <span class="car-detail-item"><i class="fa-solid fa-gauge-high"></i> 15k km</span>
+                            <span class="car-detail-item"><i class="fa-solid fa-location-dot"></i> Islamabad</span>
+                        </div>
+                        <div class="car-price">Rs. 18,500,000</div>
+                        <div class="car-buttons">
+                            <button class="car-btn btn-primary" onclick="viewCar('Tesla Model 3')">View Details</button>
+                            <button class="car-btn btn-secondary" onclick="addToFav('Tesla Model 3', 18500000)"><i class="fa-regular fa-heart"></i></button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="car-card" data-category="electric">
+                    <div class="car-image" style="background: url('car6.jpeg') 
+                    center/cover no-repeat;">
+                    <span class="car-badge">2023
+                    </span>
+                    </div>
+                    <div class="car-info">
+                        <div class="car-name">MG ZS EV</div>
+                        <div class="car-details">
+                            <span class="car-detail-item"><i class="fa-solid fa-battery-full"></i> Electric</span>
+                            <span class="car-detail-item"><i class="fa-solid fa-gauge-high"></i> 8k km</span>
+                            <span class="car-detail-item"><i class="fa-solid fa-location-dot"></i> Lahore</span>
+                        </div>
+                        <div class="car-price">Rs. 8,900,000</div>
+                        <div class="car-buttons">
+                            <button class="car-btn btn-primary" onclick="viewCar('MG ZS EV')">View Details</button>
+                            <button class="car-btn btn-secondary" onclick="addToFav('MG ZS EV', 8900000)"><i class="fa-regular fa-heart"></i></button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="car-card" data-category="electric">
+                    <div class="car-image" style="background: url('car7.jpeg') center/cover no-repeat;">
+    <span class="car-badge">2022</span>
+</div>
+                    <div class="car-info">
+                        <div class="car-name">BYD Dolphin</div>
+                        <div class="car-details">
+                            <span class="car-detail-item"><i class="fa-solid fa-battery-full"></i> Electric</span>
+                            <span class="car-detail-item"><i class="fa-solid fa-gauge-high"></i> 12k km</span>
+                            <span class="car-detail-item"><i class="fa-solid fa-location-dot"></i> Karachi</span>
+                        </div>
+                        <div class="car-price">Rs. 6,200,000</div>
+                        <div class="car-buttons">
+                            <button class="car-btn btn-primary" onclick="viewCar('BYD Dolphin')">View Details</button>
+                            <button class="car-btn btn-secondary" onclick="addToFav('BYD Dolphin', 6200000)"><i class="fa-regular fa-heart"></i></button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="car-card" data-category="electric">
+                    <div class="car-image" style="background: url('car8.jpeg') center/cover no-repeat;">
+    <span class="car-badge">2021</span>
+</div>
+                    <div class="car-info">
+                        <div class="car-name">Nissan Leaf</div>
+                        <div class="car-details">
+                            <span class="car-detail-item"><i class="fa-solid fa-battery-full"></i> Electric</span>
+                            <span class="car-detail-item"><i class="fa-solid fa-gauge-high"></i> 25k km</span>
+                            <span class="car-detail-item"><i class="fa-solid fa-location-dot"></i> Lahore</span>
+                        </div>
+                        <div class="car-price">Rs. 4,800,000</div>
+                        <div class="car-buttons">
+                            <button class="car-btn btn-primary" onclick="viewCar('Nissan Leaf')">View Details</button>
+                            <button class="car-btn btn-secondary" onclick="addToFav('Nissan Leaf', 4800000)"><i class="fa-regular fa-heart"></i></button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Hybrid Cars (4 cars) -->
+                <div class="car-card" data-category="hybrid">
+                  <div class="car-image" style="background: url('car9.jpeg') center/cover no-repeat;">
+    <span class="car-badge">2020</span>
+</div>
+                    <div class="car-info">
+                        <div class="car-name">Toyota Prius</div>
+                        <div class="car-details">
+                            <span class="car-detail-item"><i class="fa-solid fa-gas-pump"></i> Hybrid</span>
+                            <span class="car-detail-item"><i class="fa-solid fa-gauge-high"></i> 35k km</span>
+                            <span class="car-detail-item"><i class="fa-solid fa-location-dot"></i> Lahore</span>
+                        </div>
+                        <div class="car-price">Rs. 5,400,000</div>
+                        <div class="car-buttons">
+                            <button class="car-btn btn-primary" onclick="viewCar('Toyota Prius')">View Details</button>
+                            <button class="car-btn btn-secondary" onclick="addToFav('Toyota Prius', 5400000)"><i class="fa-regular fa-heart"></i></button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="car-card" data-category="hybrid">
+                    <div class="car-image" style="background: url('car10.jpeg') center/cover no-repeat;">
+    <span class="car-badge">2020</span>
+</div>
+                    <div class="car-info">
+                        <div class="car-name">Honda Vezel</div>
+                        <div class="car-details">
+                            <span class="car-detail-item"><i class="fa-solid fa-gas-pump"></i> Hybrid</span>
+                            <span class="car-detail-item"><i class="fa-solid fa-gauge-high"></i> 28k km</span>
+                            <span class="car-detail-item"><i class="fa-solid fa-location-dot"></i> Islamabad</span>
+                        </div>
+                        <div class="car-price">Rs. 6,800,000</div>
+                        <div class="car-buttons">
+                            <button class="car-btn btn-primary" onclick="viewCar('Honda Vezel')">View Details</button>
+                            <button class="car-btn btn-secondary" onclick="addToFav('Honda Vezel', 6800000)"><i class="fa-regular fa-heart"></i></button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="car-card" data-category="hybrid">
+                   <div class="car-image" style="background: url('car11.jpeg') center/cover no-repeat;">
+    <span class="car-badge">2019</span>
+</div>
+                    <div class="car-info">
+                        <div class="car-name">Toyota Aqua</div>
+                        <div class="car-details">
+                            <span class="car-detail-item"><i class="fa-solid fa-gas-pump"></i> Hybrid</span>
+                            <span class="car-detail-item"><i class="fa-solid fa-gauge-high"></i> 42k km</span>
+                            <span class="car-detail-item"><i class="fa-solid fa-location-dot"></i> Karachi</span>
+                        </div>
+                        <div class="car-price">Rs. 3,200,000</div>
+                        <div class="car-buttons">
+                            <button class="car-btn btn-primary" onclick="viewCar('Toyota Aqua')">View Details</button>
+                            <button class="car-btn btn-secondary" onclick="addToFav('Toyota Aqua', 3200000)"><i class="fa-regular fa-heart"></i></button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="car-card" data-category="hybrid">
+                   <div class="car-image" style="background: url('car12.jpeg') center/cover no-repeat;">
+    <span class="car-badge">2020</span>
+</div>
+                    <div class="car-info">
+                        <div class="car-name">Toyota Camry Hybrid</div>
+                        <div class="car-details">
+                            <span class="car-detail-item"><i class="fa-solid fa-gas-pump"></i> Hybrid</span>
+                            <span class="car-detail-item"><i class="fa-solid fa-gauge-high"></i> 30k km</span>
+                            <span class="car-detail-item"><i class="fa-solid fa-location-dot"></i> Lahore</span>
+                        </div>
+                        <div class="car-price">Rs. 12,500,000</div>
+                        <div class="car-buttons">
+                            <button class="car-btn btn-primary" onclick="viewCar('Toyota Camry Hybrid')">View Details</button>
+                            <button class="car-btn btn-secondary" onclick="addToFav('Toyota Camry Hybrid', 12500000)"><i class="fa-regular fa-heart"></i></button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 7 Seater Cars (4 cars) -->
+                <div class="car-card" data-category="7seater">
+                   <div class="car-image" style="background: url('car13.jpeg') center/cover no-repeat;">
+    <span class="car-badge">2019</span>
+</div>
+                    <div class="car-info">
+                        <div class="car-name">Toyota Fortuner</div>
+                        <div class="car-details">
+                            <span class="car-detail-item"><i class="fa-solid fa-gas-pump"></i> Diesel</span>
+                            <span class="car-detail-item"><i class="fa-solid fa-gauge-high"></i> 48k km</span>
+                            <span class="car-detail-item"><i class="fa-solid fa-location-dot"></i> Lahore</span>
+                        </div>
+                        <div class="car-price">Rs. 9,800,000</div>
+                        <div class="car-buttons">
+                            <button class="car-btn btn-primary" onclick="viewCar('Toyota Fortuner')">View Details</button>
+                            <button class="car-btn btn-secondary" onclick="addToFav('Toyota Fortuner', 9800000)"><i class="fa-regular fa-heart"></i></button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="car-card" data-category="7seater">
+                  <div class="car-image" style="background: url('car14.jpeg') center/cover no-repeat;">
+    <span class="car-badge">2019</span>
+</div>
+                    <div class="car-info">
+                        <div class="car-name">Kia Carnival</div>
+                        <div class="car-details">
+                            <span class="car-detail-item"><i class="fa-solid fa-gas-pump"></i> Diesel</span>
+                            <span class="car-detail-item"><i class="fa-solid fa-gauge-high"></i> 35k km</span>
+                            <span class="car-detail-item"><i class="fa-solid fa-location-dot"></i> Islamabad</span>
+                        </div>
+                        <div class="car-price">Rs. 11,200,000</div>
+                        <div class="car-buttons">
+                            <button class="car-btn btn-primary" onclick="viewCar('Kia Carnival')">View Details</button>
+                            <button class="car-btn btn-secondary" onclick="addToFav('Kia Carnival', 11200000)"><i class="fa-regular fa-heart"></i></button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="car-card" data-category="7seater">
+                    <div class="car-image" style="background: url('car15.jpeg') center/cover no-repeat;">
+    <span class="car-badge">2018</span>
+</div>
+                    <div class="car-info">
+                        <div class="car-name">Honda BR-V</div>
+                        <div class="car-details">
+                            <span class="car-detail-item"><i class="fa-solid fa-gas-pump"></i> Petrol</span>
+                            <span class="car-detail-item"><i class="fa-solid fa-gauge-high"></i> 52k km</span>
+                            <span class="car-detail-item"><i class="fa-solid fa-location-dot"></i> Karachi</span>
+                        </div>
+                        <div class="car-price">Rs. 4,100,000</div>
+                        <div class="car-buttons">
+                            <button class="car-btn btn-primary" onclick="viewCar('Honda BR-V')">View Details</button>
+                            <button class="car-btn btn-secondary" onclick="addToFav('Honda BR-V', 4100000)"><i class="fa-regular fa-heart"></i></button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="car-card" data-category="7seater">
+                    <div class="car-image" style="background: url('car16.jpeg') center/cover no-repeat;">
+    <span class="car-badge">2021</span>
+</div>
+                    <div class="car-info">
+                        <div class="car-name">Hyundai Santa Fe</div>
+                        <div class="car-details">
+                            <span class="car-detail-item"><i class="fa-solid fa-gas-pump"></i> Diesel</span>
+                            <span class="car-detail-item"><i class="fa-solid fa-gauge-high"></i> 25k km</span>
+                            <span class="car-detail-item"><i class="fa-solid fa-location-dot"></i> Lahore</span>
+                        </div>
+                        <div class="car-price">Rs. 10,500,000</div>
+                        <div class="car-buttons">
+                            <button class="car-btn btn-primary" onclick="viewCar('Hyundai Santa Fe')">View Details</button>
+                            <button class="car-btn btn-secondary" onclick="addToFav('Hyundai Santa Fe', 10500000)"><i class="fa-regular fa-heart"></i></button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 5 Seater Cars (4 cars) -->
+                <div class="car-card" data-category="5seater">
+                    <div class="car-image" style="background: url('car17.jpeg') center/cover no-repeat;">
+    <span class="car-badge">2021</span>
+</div>
+                    <div class="car-info">
+                        <div class="car-name">Honda City</div>
+                        <div class="car-details">
+                            <span class="car-detail-item"><i class="fa-solid fa-gas-pump"></i> Petrol</span>
+                            <span class="car-detail-item"><i class="fa-solid fa-gauge-high"></i> 28k km</span>
+                            <span class="car-detail-item"><i class="fa-solid fa-location-dot"></i> Lahore</span>
+                        </div>
+                        <div class="car-price">Rs. 3,600,000</div>
+                        <div class="car-buttons">
+                            <button class="car-btn btn-primary" onclick="viewCar('Honda City')">View Details</button>
+                            <button class="car-btn btn-secondary" onclick="addToFav('Honda City', 3600000)"><i class="fa-regular fa-heart"></i></button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="car-card" data-category="5seater">
+                  <div class="car-image" style="background: url('car18.jpeg') center/cover no-repeat;">
+    <span class="car-badge">2021</span>
+</div>
+                    <div class="car-info">
+                        <div class="car-name">Toyota Yaris</div>
+                        <div class="car-details">
+                            <span class="car-detail-item"><i class="fa-solid fa-gas-pump"></i> Petrol</span>
+                            <span class="car-detail-item"><i class="fa-solid fa-gauge-high"></i> 32k km</span>
+                            <span class="car-detail-item"><i class="fa-solid fa-location-dot"></i> Islamabad</span>
+                        </div>
+                        <div class="car-price">Rs. 3,400,000</div>
+                        <div class="car-buttons">
+                            <button class="car-btn btn-primary" onclick="viewCar('Toyota Yaris')">View Details</button>
+                            <button class="car-btn btn-secondary" onclick="addToFav('Toyota Yaris', 3400000)"><i class="fa-regular fa-heart"></i></button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="car-card" data-category="5seater">
+                    <div class="car-image" style="background: url('car19.jpeg') center/cover no-repeat;">
+    <span class="car-badge">2022</span>
+</div>
+                    <div class="car-info">
+                        <div class="car-name">Changan Alsvin</div>
+                        <div class="car-details">
+                            <span class="car-detail-item"><i class="fa-solid fa-gas-pump"></i> Petrol</span>
+                            <span class="car-detail-item"><i class="fa-solid fa-gauge-high"></i> 18k km</span>
+                            <span class="car-detail-item"><i class="fa-solid fa-location-dot"></i> Karachi</span>
+                        </div>
+                        <div class="car-price">Rs. 3,800,000</div>
+                        <div class="car-buttons">
+                            <button class="car-btn btn-primary" onclick="viewCar('Changan Alsvin')">View Details</button>
+                            <button class="car-btn btn-secondary" onclick="addToFav('Changan Alsvin', 3800000)"><i class="fa-regular fa-heart"></i></button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="car-card" data-category="5seater">
+                    <div class="car-image" style="background: url('car20.jpeg') center/cover no-repeat;">
+    <span class="car-badge">2019</span>
+</div>
+                    <div class="car-info">
+                        <div class="car-name">Suzuki Swift</div>
+                        <div class="car-details">
+                            <span class="car-detail-item"><i class="fa-solid fa-gas-pump"></i> Petrol</span>
+                            <span class="car-detail-item"><i class="fa-solid fa-gauge-high"></i> 40k km</span>
+                            <span class="car-detail-item"><i class="fa-solid fa-location-dot"></i> Lahore</span>
+                        </div>
+                        <div class="car-price">Rs. 2,850,000</div>
+                        <div class="car-buttons">
+                            <button class="car-btn btn-primary" onclick="viewCar('Suzuki Swift')">View Details</button>
+                            <button class="car-btn btn-secondary" onclick="addToFav('Suzuki Swift', 2850000)"><i class="fa-regular fa-heart"></i></button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 2 Seater Cars (4 cars) -->
+                <div class="car-card" data-category="2seater">
+                    <div class="car-image" style="background: url('car21.jpeg') center/cover no-repeat;">
+    <span class="car-badge">2018</span>
+</div>
+                    <div class="car-info">
+                        <div class="car-name">Mazda MX-5 Miata</div>
+                        <div class="car-details">
+                            <span class="car-detail-item"><i class="fa-solid fa-gas-pump"></i> Petrol</span>
+                            <span class="car-detail-item"><i class="fa-solid fa-gauge-high"></i> 22k km</span>
+                            <span class="car-detail-item"><i class="fa-solid fa-location-dot"></i> Islamabad</span>
+                        </div>
+                        <div class="car-price">Rs. 5,500,000</div>
+                        <div class="car-buttons">
+                            <button class="car-btn btn-primary" onclick="viewCar('Mazda MX-5 Miata')">View Details</button>
+                            <button class="car-btn btn-secondary" onclick="addToFav('Mazda MX-5 Miata', 5500000)"><i class="fa-regular fa-heart"></i></button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="car-card" data-category="2seater">
+                    <div class="car-image" style="background: url('car22.jpeg') center/cover no-repeat;">
+    <span class="car-badge">2019</span>
+</div>
+                    <div class="car-info">
+                        <div class="car-name">BMW Z4</div>
+                        <div class="car-details">
+                            <span class="car-detail-item"><i class="fa-solid fa-gas-pump"></i> Petrol</span>
+                            <span class="car-detail-item"><i class="fa-solid fa-gauge-high"></i> 18k km</span>
+                            <span class="car-detail-item"><i class="fa-solid fa-location-dot"></i> Lahore</span>
+                        </div>
+                        <div class="car-price">Rs. 14,200,000</div>
+                        <div class="car-buttons">
+                            <button class="car-btn btn-primary" onclick="viewCar('BMW Z4')">View Details</button>
+                            <button class="car-btn btn-secondary" onclick="addToFav('BMW Z4', 14200000)"><i class="fa-regular fa-heart"></i></button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="car-card" data-category="2seater">
+                   <div class="car-image" style="background: url('car23.jpeg') center/cover no-repeat;">
+    <span class="car-badge">2020</span>
+</div>
+                    <div class="car-info">
+                        <div class="car-name">Mercedes SLC</div>
+                        <div class="car-details">
+                            <span class="car-detail-item"><i class="fa-solid fa-gas-pump"></i> Petrol</span>
+                            <span class="car-detail-item"><i class="fa-solid fa-gauge-high"></i> 15k km</span>
+                            <span class="car-detail-item"><i class="fa-solid fa-location-dot"></i> Karachi</span>
+                        </div>
+                        <div class="car-price">Rs. 16,800,000</div>
+                        <div class="car-buttons">
+                            <button class="car-btn btn-primary" onclick="viewCar('Mercedes SLC')">View Details</button>
+                            <button class="car-btn btn-secondary" onclick="addToFav('Mercedes SLC', 16800000)"><i class="fa-regular fa-heart"></i></button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="car-card" data-category="2seater">
+                   <div class="car-image" style="background: url('car24.jpeg') center/cover no-repeat;">
+    <span class="car-badge">2017</span>
+</div>
+                    <div class="car-info">
+                        <div class="car-name">Audi TT</div>
+                        <div class="car-details">
+                            <span class="car-detail-item"><i class="fa-solid fa-gas-pump"></i> Petrol</span>
+                            <span class="car-detail-item"><i class="fa-solid fa-gauge-high"></i> 28k km</span>
+                            <span class="car-detail-item"><i class="fa-solid fa-location-dot"></i> Lahore</span>
+                        </div>
+                        <div class="car-price">Rs. 8,900,000</div>
+                        <div class="car-buttons">
+                            <button class="car-btn btn-primary" onclick="viewCar('Audi TT')">View Details</button>
+                            <button class="car-btn btn-secondary" onclick="addToFav('Audi TT', 8900000)"><i class="fa-regular fa-heart"></i></button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Sports Cars (4 cars) -->
+                <div class="car-card" data-category="sports">
+                    <div class="car-image" style="background: url('car25.jpeg') center/cover no-repeat;">
+    <span class="car-badge">2019</span>
+</div>
+                    <div class="car-info">
+                        <div class="car-name">Ford Mustang GT</div>
+                        <div class="car-details">
+                            <span class="car-detail-item"><i class="fa-solid fa-gas-pump"></i> Petrol</span>
+                            <span class="car-detail-item"><i class="fa-solid fa-gauge-high"></i> 20k km</span>
+                            <span class="car-detail-item"><i class="fa-solid fa-location-dot"></i> Islamabad</span>
+                        </div>
+                        <div class="car-price">Rs. 18,500,000</div>
+                        <div class="car-buttons">
+                            <button class="car-btn btn-primary" onclick="viewCar('Ford Mustang GT')">View Details</button>
+                            <button class="car-btn btn-secondary" onclick="addToFav('Ford Mustang GT', 18500000)"><i class="fa-regular fa-heart"></i></button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="car-card" data-category="sports">
+                    <div class="car-image" style="background: url('car26.jpeg') center/cover no-repeat;">
+    <span class="car-badge">2018</span>
+</div>
+                    <div class="car-info">
+                        <div class="car-name">Chevrolet Camaro</div>
+                        <div class="car-details">
+                            <span class="car-detail-item"><i class="fa-solid fa-gas-pump"></i> Petrol</span>
+                            <span class="car-detail-item"><i class="fa-solid fa-gauge-high"></i> 25k km</span>
+                            <span class="car-detail-item"><i class="fa-solid fa-location-dot"></i> Lahore</span>
+                        </div>
+                        <div class="car-price">Rs. 15,200,000</div>
+                        <div class="car-buttons">
+                            <button class="car-btn btn-primary" onclick="viewCar('Chevrolet Camaro')">View Details</button>
+                            <button class="car-btn btn-secondary" onclick="addToFav('Chevrolet Camaro', 15200000)"><i class="fa-regular fa-heart"></i></button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="car-card" data-category="sports">
+                    <div class="car-image" style="background: url('car27.jpeg') center/cover no-repeat;">
+    <span class="car-badge">2020</span>
+</div>
+                    <div class="car-info">
+                        <div class="car-name">Porsche 718 Cayman</div>
+                        <div class="car-details">
+                            <span class="car-detail-item"><i class="fa-solid fa-gas-pump"></i> Petrol</span>
+                            <span class="car-detail-item"><i class="fa-solid fa-gauge-high"></i> 12k km</span>
+                            <span class="car-detail-item"><i class="fa-solid fa-location-dot"></i> Karachi</span>
+                        </div>
+                        <div class="car-price">Rs. 28,000,000</div>
+                        <div class="car-buttons">
+                            <button class="car-btn btn-primary" onclick="viewCar('Porsche 718 Cayman')">View Details</button>
+                            <button class="car-btn btn-secondary" onclick="addToFav('Porsche 718 Cayman', 28000000)"><i class="fa-regular fa-heart"></i></button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="car-card" data-category="sports">
+                    <div class="car-image" style="background: url('car28.jpeg') center/cover no-repeat;">
+    <span class="car-badge">2019</span>
+</div>
+                    <div class="car-info">
+                        <div class="car-name">Nissan 370Z</div>
+                        <div class="car-details">
+                            <span class="car-detail-item"><i class="fa-solid fa-gas-pump"></i> Petrol</span>
+                            <span class="car-detail-item"><i class="fa-solid fa-gauge-high"></i> 22k km</span>
+                            <span class="car-detail-item"><i class="fa-solid fa-location-dot"></i> Lahore</span>
+                        </div>
+                        <div class="car-price">Rs. 9,500,000</div>
+                        <div class="car-buttons">
+                            <button class="car-btn btn-primary" onclick="viewCar('Nissan 370Z')">View Details</button>
+                            <button class="car-btn btn-secondary" onclick="addToFav('Nissan 370Z', 9500000)"><i class="fa-regular fa-heart"></i></button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Family Cars (4 cars) -->
+                <div class="car-card" data-category="family">
+                    <div class="car-image" style="background: url('car29.jpeg') center/cover no-repeat;">
+    <span class="car-badge">2020</span>
+</div>
+                    <div class="car-info">
+                        <div class="car-name">Toyota Corolla Grande</div>
+                        <div class="car-details">
+                            <span class="car-detail-item"><i class="fa-solid fa-gas-pump"></i> Petrol</span>
+                            <span class="car-detail-item"><i class="fa-solid fa-gauge-high"></i> 32k km</span>
+                            <span class="car-detail-item"><i class="fa-solid fa-location-dot"></i> Lahore</span>
+                        </div>
+                        <div class="car-price">Rs. 5,200,000</div>
+                        <div class="car-buttons">
+                            <button class="car-btn btn-primary" onclick="viewCar('Toyota Corolla Grande')">View Details</button>
+                            <button class="car-btn btn-secondary" onclick="addToFav('Toyota Corolla Grande', 5200000)"><i class="fa-regular fa-heart"></i></button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="car-card" data-category="family">
+                   <div class="car-image" style="background: url('car30.jpeg') center/cover no-repeat;">
+    <span class="car-badge">2019</span>
+</div>
+                    <div class="car-info">
+                        <div class="car-name">Honda Accord</div>
+                        <div class="car-details">
+                            <span class="car-detail-item"><i class="fa-solid fa-gas-pump"></i> Petrol</span>
+                            <span class="car-detail-item"><i class="fa-solid fa-gauge-high"></i> 38k km</span>
+                            <span class="car-detail-item"><i class="fa-solid fa-location-dot"></i> Islamabad</span>
+                        </div>
+                        <div class="car-price">Rs. 6,800,000</div>
+                        <div class="car-buttons">
+                            <button class="car-btn btn-primary" onclick="viewCar('Honda Accord')">View Details</button>
+                            <button class="car-btn btn-secondary" onclick="addToFav('Honda Accord', 6800000)"><i class="fa-regular fa-heart"></i></button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="car-card" data-category="family">
+                    <div class="car-image" style="background: url('car31.jpeg') center/cover no-repeat;">
+    <span class="car-badge">2021</span>
+</div>
+                    <div class="car-info">
+                        <div class="car-name">Hyundai Sonata</div>
+                        <div class="car-details">
+                            <span class="car-detail-item"><i class="fa-solid fa-gas-pump"></i> Petrol</span>
+                            <span class="car-detail-item"><i class="fa-solid fa-gauge-high"></i> 25k km</span>
+                            <span class="car-detail-item"><i class="fa-solid fa-location-dot"></i> Karachi</span>
+                        </div>
+                        <div class="car-price">Rs. 7,200,000</div>
+                        <div class="car-buttons">
+                            <button class="car-btn btn-primary" onclick="viewCar('Hyundai Sonata')">View Details</button>
+                            <button class="car-btn btn-secondary" onclick="addToFav('Hyundai Sonata', 7200000)"><i class="fa-regular fa-heart"></i></button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="car-card" data-category="family">
+                   <div class="car-image" style="background: url('car32.jpeg') center/cover no-repeat;">
+    <span class="car-badge">2020</span>
+</div>
+                    <div class="car-info">
+                        <div class="car-name">Toyota Camry</div>
+                        <div class="car-details">
+                            <span class="car-detail-item"><i class="fa-solid fa-gas-pump"></i> Petrol</span>
+                            <span class="car-detail-item"><i class="fa-solid fa-gauge-high"></i> 30k km</span>
+                            <span class="car-detail-item"><i class="fa-solid fa-location-dot"></i> Lahore</span>
+                        </div>
+                        <div class="car-price">Rs. 9,500,000</div>
+                        <div class="car-buttons">
+                            <button class="car-btn btn-primary" onclick="viewCar('Toyota Camry')">View Details</button>
+                            <button class="car-btn btn-secondary" onclick="addToFav('Toyota Camry', 9500000)"><i class="fa-regular fa-heart"></i></button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Sedans (4 cars) -->
+                <div class="car-card" data-category="sedan">
+                    <div class="car-image" style="background: url('car33.jpeg') center/cover no-repeat;">
+    <span class="car-badge">2021</span>
+</div>
+                    <div class="car-info">
+                        <div class="car-name">Mercedes C-Class</div>
+                        <div class="car-details">
+                            <span class="car-detail-item"><i class="fa-solid fa-gas-pump"></i> Petrol</span>
+                            <span class="car-detail-item"><i class="fa-solid fa-gauge-high"></i> 20k km</span>
+                            <span class="car-detail-item"><i class="fa-solid fa-location-dot"></i> Islamabad</span>
+                        </div>
+                        <div class="car-price">Rs. 12,500,000</div>
+                        <div class="car-buttons">
+                            <button class="car-btn btn-primary" onclick="viewCar('Mercedes C-Class')">View Details</button>
+                            <button class="car-btn btn-secondary" onclick="addToFav('Mercedes C-Class', 12500000)"><i class="fa-regular fa-heart"></i></button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="car-card" data-category="sedan">
+                    <div class="car-image" style="background: url('car34.jpeg') center/cover no-repeat;">
+    <span class="car-badge">2020</span>
+</div>
+                    <div class="car-info">
+                        <div class="car-name">BMW 3 Series</div>
+                        <div class="car-details">
+                            <span class="car-detail-item"><i class="fa-solid fa-gas-pump"></i> Petrol</span>
+                            <span class="car-detail-item"><i class="fa-solid fa-gauge-high"></i> 25k km</span>
+                            <span class="car-detail-item"><i class="fa-solid fa-location-dot"></i> Lahore</span>
+                        </div>
+                        <div class="car-price">Rs. 11,800,000</div>
+                        <div class="car-buttons">
+                            <button class="car-btn btn-primary" onclick="viewCar('BMW 3 Series')">View Details</button>
+                            <button class="car-btn btn-secondary" onclick="addToFav('BMW 3 Series', 11800000)"><i class="fa-regular fa-heart"></i></button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="car-card" data-category="sedan">
+                    <div class="car-image" style="background: url('car35.jpeg') center/cover no-repeat;">
+    <span class="car-badge">2020</span>
+</div>
+                    <div class="car-info">
+                        <div class="car-name">Audi A4</div>
+                        <div class="car-details">
+                            <span class="car-detail-item"><i class="fa-solid fa-gas-pump"></i> Petrol</span>
+                            <span class="car-detail-item"><i class="fa-solid fa-gauge-high"></i> 32k km</span>
+                            <span class="car-detail-item"><i class="fa-solid fa-location-dot"></i> Karachi</span>
+                        </div>
+                        <div class="car-price">Rs. 9,200,000</div>
+                        <div class="car-buttons">
+                            <button class="car-btn btn-primary" onclick="viewCar('Audi A4')">View Details</button>
+                            <button class="car-btn btn-secondary" onclick="addToFav('Audi A4', 9200000)"><i class="fa-regular fa-heart"></i></button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="car-card" data-category="sedan">
+                    <div class="car-image" style="background: url('car36.jpeg') center/cover no-repeat;">
+    <span class="car-badge">2020</span>
+</div>
+                    <div class="car-info">
+                        <div class="car-name">Lexus ES 350</div>
+                        <div class="car-details">
+                            <span class="car-detail-item"><i class="fa-solid fa-gas-pump"></i> Petrol</span>
+                            <span class="car-detail-item"><i class="fa-solid fa-gauge-high"></i> 15k km</span>
+                            <span class="car-detail-item"><i class="fa-solid fa-location-dot"></i> Lahore</span>
+                        </div>
+                        <div class="car-price">Rs. 14,500,000</div>
+                        <div class="car-buttons">
+                            <button class="car-btn btn-primary" onclick="viewCar('Lexus ES 350')">View Details</button>
+                            <button class="car-btn btn-secondary" onclick="addToFav('Lexus ES 350', 14500000)"><i class="fa-regular fa-heart"></i></button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- SUVs (4 cars) -->
+                <div class="car-card" data-category="suv">
+                    <div class="car-image" style="background: url('car37.jpeg') center/cover no-repeat;">
+    <span class="car-badge">2021</span>
+</div>
+                    <div class="car-info">
+                        <div class="car-name">Range Rover Evoque</div>
+                        <div class="car-details">
+                            <span class="car-detail-item"><i class="fa-solid fa-gas-pump"></i> Petrol</span>
+                            <span class="car-detail-item"><i class="fa-solid fa-gauge-high"></i> 18k km</span>
+                            <span class="car-detail-item"><i class="fa-solid fa-location-dot"></i> Islamabad</span>
+                        </div>
+                        <div class="car-price">Rs. 16,500,000</div>
+                        <div class="car-buttons">
+                            <button class="car-btn btn-primary" onclick="viewCar('Range Rover Evoque')">View Details</button>
+                            <button class="car-btn btn-secondary" onclick="addToFav('Range Rover Evoque', 16500000)"><i class="fa-regular fa-heart"></i></button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="car-card" data-category="suv">
+                    <div class="car-image" style="background: url('car38.jpeg') center/cover no-repeat;">
+    <span class="car-badge">2020</span>
+</div>
+                    <div class="car-info">
+                        <div class="car-name">BMW X5</div>
+                        <div class="car-details">
+                            <span class="car-detail-item"><i class="fa-solid fa-gas-pump"></i> Diesel</span>
+                            <span class="car-detail-item"><i class="fa-solid fa-gauge-high"></i> 28k km</span>
+                            <span class="car-detail-item"><i class="fa-solid fa-location-dot"></i> Lahore</span>
+                        </div>
+                        <div class="car-price">Rs. 22,000,000</div>
+                        <div class="car-buttons">
+                            <button class="car-btn btn-primary" onclick="viewCar('BMW X5')">View Details</button>
+                            <button class="car-btn btn-secondary" onclick="addToFav('BMW X5', 22000000)"><i class="fa-regular fa-heart"></i></button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="car-card" data-category="suv">
+                    <div class="car-image" style="background: url('car39.jpeg') center/cover no-repeat;">
+    <span class="car-badge">2019</span>
+</div>
+                    <div class="car-info">
+                        <div class="car-name">Mercedes GLC</div>
+                        <div class="car-details">
+                            <span class="car-detail-item"><i class="fa-solid fa-gas-pump"></i> Petrol</span>
+                            <span class="car-detail-item"><i class="fa-solid fa-gauge-high"></i> 35k km</span>
+                            <span class="car-detail-item"><i class="fa-solid fa-location-dot"></i> Karachi</span>
+                        </div>
+                        <div class="car-price">Rs. 13,500,000</div>
+                        <div class="car-buttons">
+                            <button class="car-btn btn-primary" onclick="viewCar('Mercedes GLC')">View Details</button>
+                            <button class="car-btn btn-secondary" onclick="addToFav('Mercedes GLC', 13500000)"><i class="fa-regular fa-heart"></i></button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="car-card" data-category="suv">
+                    <div class="car-image" style="background: url('car40.jpeg') center/cover no-repeat;">
+    <span class="car-badge">2019</span>
+</div>
+                    <div class="car-info">
+                        <div class="car-name">Audi Q5</div>
+                        <div class="car-details">
+                            <span class="car-detail-item"><i class="fa-solid fa-gas-pump"></i> Petrol</span>
+                            <span class="car-detail-item"><i class="fa-solid fa-gauge-high"></i> 15k km</span>
+                            <span class="car-detail-item"><i class="fa-solid fa-location-dot"></i> Lahore</span>
+                        </div>
+                        <div class="car-price">Rs. 15,800,000</div>
+                        <div class="car-buttons">
+                            <button class="car-btn btn-primary" onclick="viewCar('Audi Q5')">View Details</button>
+                            <button class="car-btn btn-secondary" onclick="addToFav('Audi Q5', 15800000)"><i class="fa-regular fa-heart"></i></button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 4x4 Cars (4 cars) -->
+                <div class="car-card" data-category="4x4">
+                    <div class="car-image" style="background: url('car41.jpeg') center/cover no-repeat;">
+    <span class="car-badge">2019</span>
+</div>
+                    <div class="car-info">
+                        <div class="car-name">Toyota Land Cruiser</div>
+                        <div class="car-details">
+                            <span class="car-detail-item"><i class="fa-solid fa-gas-pump"></i> Diesel</span>
+                            <span class="car-detail-item"><i class="fa-solid fa-gauge-high"></i> 45k km</span>
+                            <span class="car-detail-item"><i class="fa-solid fa-location-dot"></i> Lahore</span>
+                        </div>
+                        <div class="car-price">Rs. 35,000,000</div>
+                        <div class="car-buttons">
+                            <button class="car-btn btn-primary" onclick="viewCar('Toyota Land Cruiser')">View Details</button>
+                            <button class="car-btn btn-secondary" onclick="addToFav('Toyota Land Cruiser', 35000000)"><i class="fa-regular fa-heart"></i></button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="car-card" data-category="4x4">
+                   <div class="car-image" style="background: url('car42.jpeg') center/cover no-repeat;">
+    <span class="car-badge">2020</span>
+</div>
+                    <div class="car-info">
+                        <div class="car-name">Jeep Wrangler</div>
+                        <div class="car-details">
+                            <span class="car-detail-item"><i class="fa-solid fa-gas-pump"></i> Petrol</span>
+                            <span class="car-detail-item"><i class="fa-solid fa-gauge-high"></i> 22k km</span>
+                            <span class="car-detail-item"><i class="fa-solid fa-location-dot"></i> Islamabad</span>
+                        </div>
+                        <div class="car-price">Rs. 14,500,000</div>
+                        <div class="car-buttons">
+                            <button class="car-btn btn-primary" onclick="viewCar('Jeep Wrangler')">View Details</button>
+                            <button class="car-btn btn-secondary" onclick="addToFav('Jeep Wrangler', 14500000)"><i class="fa-regular fa-heart"></i></button>
+                        </div>
+                    </div>
+                </div>
+                       <div class="car-card" data-category="4x4">
+                   <div class="car-image" style="background: url('car43.jpeg') center/cover no-repeat;">
+    <span class="car-badge">2021</span>
+</div>
+                    <div class="car-info">
+                        <div class="car-name">Ford Ranger Raptor</div>
+                        <div class="car-details">
+                            <span class="car-detail-item"><i class="fa-solid fa-gas-pump"></i> Petrol</span>
+                            <span class="car-detail-item"><i class="fa-solid fa-gauge-high"></i> 22k km</span>
+                            <span class="car-detail-item"><i class="fa-solid fa-location-dot"></i> Islamabad</span>
+                        </div>
+                        <div class="car-price">Rs. 11,200,000</div>
+                        <div class="car-buttons">
+                            <button class="car-btn btn-primary" onclick="viewCar('Jeep Wrangler')">View Details</button>
+                            <button class="car-btn btn-secondary" onclick="addToFav('Jeep Wrangler', 14500000)"><i class="fa-regular fa-heart"></i></button>
+                        </div>
+                    </div>
+                </div>
+                <div class="car-card" data-category="4x4">
+                   <div class="car-image" style="background: url('car44.jpeg') center/cover no-repeat;">
+    <span class="car-badge">2021</span>
+</div>
+                    <div class="car-info">
+                        <div class="car-name">Isuzu D-Max</div>
+                        <div class="car-details">
+                            <span class="car-detail-item"><i class="fa-solid fa-gas-pump"></i> Diesel</span>
+                            <span class="car-detail-item"><i class="fa-solid fa-gauge-high"></i> 25k km</span>
+                            <span class="car-detail-item"><i class="fa-solid fa-location-dot"></i> Lahore</span>
+                        </div>
+                        <div class="car-price">Rs. 6,800,000</div>
+                        <div class="car-buttons">
+                            <button class="car-btn btn-primary" onclick="viewCar('Isuzu D-Max')">View Details</button>
+                            <button class="car-btn btn-secondary" onclick="addToFav('Isuzu D-Max', 6800000)"><i class="fa-regular fa-heart"></i></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Row 7 - Filter Buttons -->
         <div class="row7cn">
-            <div class="row7cd"><button>Automatics</button></div>
-            <div class="row7cd"><button>Electrics</button></div>
-            <div class="row7cd"><button>Hybrids</button></div>
-            <div class="row7cd"><button>7 seaters</button></div>
-            <div class="row7cd"><button>5 seaters</button></div>
-            <div class="row7cd"><button>2 seaters</button></div>
-            <div class="row7cd"><button>Sports Cars</button></div>
-            <div class="row7cd"><button>Family Cars</button></div>
-            <div class="row7cd"><button>Sedans</button></div>
-            <div class="row7cd"><button>SUVs</button></div>
-            <div class="row7cd"><button>4X4</button></div>
+            <div class="row7cd"><button onclick="filterCars('automatic')" id="btn-automatic">Automatics</button></div>
+            <div class="row7cd"><button onclick="filterCars('electric')" id="btn-electric">Electrics</button></div>
+            <div class="row7cd"><button onclick="filterCars('hybrid')" id="btn-hybrid">Hybrids</button></div>
+            <div class="row7cd"><button onclick="filterCars('7seater')" id="btn-7seater">7 seaters</button></div>
+            <div class="row7cd"><button onclick="filterCars('5seater')" id="btn-5seater">5 seaters</button></div>
+            <div class="row7cd"><button onclick="filterCars('2seater')" id="btn-2seater">2 seaters</button></div>
+            <div class="row7cd"><button onclick="filterCars('sports')" id="btn-sports">Sports Cars</button></div>
+            <div class="row7cd"><button onclick="filterCars('family')" id="btn-family">Family Cars</button></div>
+            <div class="row7cd"><button onclick="filterCars('sedan')" id="btn-sedan">Sedans</button></div>
+            <div class="row7cd"><button onclick="filterCars('suv')" id="btn-suv">SUVs</button></div>
+            <div class="row7cd"><button onclick="filterCars('4x4')" id="btn-4x4">4X4</button></div>
+            <div class="row7cd"><button onclick="filterCars('all')" id="btn-all" class="active-filter">Show All</button></div>
         </div>
 
         <!-- Footer -->
@@ -115,9 +1257,208 @@
                   experience defined by comfort, confidence, and prestige.
             </div>
              <div class="footer">
-        <p>SK Motor Accessories | Quality Auto Styling Since 2010</p>
-        <p style="margin-top: 10px; color: #00d4ff;">Call: 0300-1234567 | Location: Main Boulevard, Lahore</p>
+                <p style="color: #00d4ff; font-size: 1.3rem; font-weight: bold;">SK Motor Accessories</p>
+                <p>Quality Auto Styling Since 2010</p>
+                <p style="margin-top: 15px; color: #00d4ff;">0300-1234567 | info@skmotor.com | Lahore, Pakistan</p>
+                <p style="margin-top: 10px; font-size: 0.9rem;">2024 SK Motor Accessories. All rights reserved.</p>
+            </div>
+        </div>
     </div>
+
+    <!-- Login Modal -->
+    <div id="login-modal" class="modal" onclick="closeLogin(event)">
+        <div class="modal-content" onclick="event.stopPropagation()">
+            <div class="modal-header">
+                <h3>Login</h3>
+                <button class="close-modal" onclick="hideLogin()">×</button>
+            </div>
+            <input type="text" class="modal-input" placeholder="Phone or Email" id="login-user">
+            <input type="password" class="modal-input" placeholder="Password" id="login-pass">
+            <button class="modal-btn" onclick="doLogin()">Login</button>
+            <p style="text-align: center; margin-top: 15px; color: #888; font-size: 0.9rem;">
+                Demo: Click Login (no credentials needed)
+            </p>
+        </div>
     </div>
+
+    <!-- Favorites Panel -->
+    <div id="fav-panel" class="fav-panel">
+        <div class="fav-header">
+            <h3>My Favorites</h3>
+            <button class="close-modal" onclick="toggleFavorites()">×</button>
+        </div>
+        <div id="fav-list" style="color: #888; text-align: center; padding: 20px;">
+            No favorites yet.<br>
+            <small>Browse LED & Lighting to add items</small>
+        </div>
+    </div>
+
+    <!-- Mobile Menu Button -->
+    <button class="mobile-menu-btn" onclick="location.href='led.html'">
+        <i class="fa-solid fa-bars"></i>
+    </button>
+
+    <!-- JavaScript -->
+    <script>
+        // Update cart count from localStorage
+        function updateCartCount() {
+            let cartCount = localStorage.getItem('skCartCount') || 0;
+            let badge = document.getElementById('cart-badge');
+            if (cartCount > 0) {
+                badge.innerText = cartCount;
+                badge.style.display = 'block';
+            } else {
+                badge.style.display = 'none';
+            }
+        }
+        
+        // Update favorites count
+        function updateFavCount() {
+            let favs = JSON.parse(localStorage.getItem('skFavorites') || '[]');
+            let badge = document.getElementById('fav-count');
+            if (favs.length > 0) {
+                badge.innerText = favs.length;
+                badge.style.display = 'block';
+            } else {
+                badge.style.display = 'none';
+            }
+        }
+        
+        // Go to cart page
+        function goToCart() {
+            window.location.href = 'led.html';
+        }
+        
+        // Login functions
+        function showLogin() {
+            document.getElementById('login-modal').style.display = 'flex';
+        }
+        
+        function hideLogin() {
+            document.getElementById('login-modal').style.display = 'none';
+        }
+        
+        function closeLogin(e) {
+            if (e.target.id === 'login-modal') hideLogin();
+        }
+        
+        function doLogin() {
+            let user = document.getElementById('login-user').value;
+            let pass = document.getElementById('login-pass').value;
+            
+            // Demo login - accept anything
+            localStorage.setItem('skUser', user || 'Guest');
+            alert('Welcome to SK Motors!');
+            hideLogin();
+            
+            // Change user icon to indicate logged in
+            document.querySelector('.fa-user').classList.remove('fa-regular');
+            document.querySelector('.fa-user').classList.add('fa-solid');
+        }
+        
+        // Favorites functions
+        function toggleFavorites() {
+            let panel = document.getElementById('fav-panel');
+            if (panel.style.display === 'block') {
+                panel.style.display = 'none';
+            } else {
+                panel.style.display = 'block';
+                loadFavorites();
+            }
+        }
+        
+        function loadFavorites() {
+            let favs = JSON.parse(localStorage.getItem('skFavorites') || '[]');
+            let list = document.getElementById('fav-list');
+            
+            if (favs.length === 0) {
+                list.innerHTML = 'No favorites yet.<br><small>Browse LED & Lighting to add items</small>';
+            } else {
+                let html = '';
+                for (let i = 0; i < favs.length; i++) {
+                    html += '<div style="background: rgba(255,255,255,0.1); padding: 15px; margin-bottom: 10px; border-radius: 8px;">';
+                    html += '<div style="color: #00d4ff; font-weight: bold;">' + favs[i].name + '</div>';
+                    html += '<div style="color: #00ff88;">Rs. ' + favs[i].price + '</div>';
+                    html += '<button onclick="removeFav(' + i + ')" style="background: #ff4444; color: white; border: none; padding: 5px 10px; border-radius: 5px; margin-top: 5px; cursor: pointer;">Remove</button>';
+                    html += '</div>';
+                }
+                list.innerHTML = html;
+            }
+        }
+        
+        function removeFav(index) {
+            let favs = JSON.parse(localStorage.getItem('skFavorites') || '[]');
+            favs.splice(index, 1);
+            localStorage.setItem('skFavorites', JSON.stringify(favs));
+            loadFavorites();
+            updateFavCount();
+        }
+        
+        // Add to favorites
+        function addToFav(name, price) {
+            let favs = JSON.parse(localStorage.getItem('skFavorites') || '[]');
+            
+            // Check if already exists
+            let exists = favs.some(function(car) {
+                return car.name === name;
+            });
+            
+            if (exists) {
+                alert(name + ' is already in your favorites!');
+                return;
+            }
+            
+            favs.push({name: name, price: price});
+            localStorage.setItem('skFavorites', JSON.stringify(favs));
+            updateFavCount();
+            alert(name + ' added to favorites!');
+        }
+        
+        // View car details
+        function viewCar(name) {
+            alert('Viewing details for: ' + name + '\n\nIn a real app, this would open a detailed car page.');
+        }
+        
+        // CAR FILTER FUNCTION - This is the main filtering logic
+        function filterCars(category) {
+            let allCards = document.querySelectorAll('.car-card');
+            let allButtons = document.querySelectorAll('.row7cd button');
+            
+            // Remove active class from all buttons
+            allButtons.forEach(function(btn) {
+                btn.classList.remove('active-filter');
+            });
+            
+            // Add active class to clicked button
+            document.getElementById('btn-' + category).classList.add('active-filter');
+            
+            // Show or hide cars based on category
+            allCards.forEach(function(card) {
+                if (category === 'all') {
+                    card.classList.remove('hidden');
+                } else {
+                    let carCategory = card.getAttribute('data-category');
+                    if (carCategory === category) {
+                        card.classList.remove('hidden');
+                    } else {
+                        card.classList.add('hidden');
+                    }
+                }
+            });
+            
+            // Scroll to car section
+            document.querySelector('.car-listing-section').scrollIntoView({behavior: 'smooth'});
+        }
+        
+        // Initialize on page load
+        updateCartCount();
+        updateFavCount();
+        
+        // Check if user is logged in
+        if (localStorage.getItem('skUser')) {
+            document.querySelector('.fa-user').classList.remove('fa-regular');
+            document.querySelector('.fa-user').classList.add('fa-solid');
+        }
+    </script>
 </body>
 </html>
